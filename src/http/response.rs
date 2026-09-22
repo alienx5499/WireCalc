@@ -57,8 +57,11 @@ impl HttpResponse {
     /// Serialize the response into wire bytes for direct transmission.
     pub fn to_bytes(&self) -> Vec<u8> {
         let mut out = Vec::with_capacity(128 + self.body.len());
-        let status_line = format!("HTTP/1.1 {}\r\n", self.status);
-        out.extend_from_slice(status_line.as_bytes());
+        out.extend_from_slice(b"HTTP/1.1 ");
+        out.extend_from_slice(self.status.code_str().as_bytes());
+        out.extend_from_slice(b" ");
+        out.extend_from_slice(self.status.reason_phrase().as_bytes());
+        out.extend_from_slice(b"\r\n");
 
         for (k, v) in &self.headers {
             out.extend_from_slice(k.as_bytes());

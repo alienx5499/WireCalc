@@ -29,7 +29,8 @@ impl HttpHeaders {
         } else if name_trimmed.eq_ignore_ascii_case("connection") {
             self.connection_close = val_trimmed.eq_ignore_ascii_case("close");
         } else {
-            self.other.push((name_trimmed.to_ascii_lowercase(), val_trimmed.to_string()));
+            self.other
+                .push((name_trimmed.to_ascii_lowercase(), val_trimmed.to_string()));
         }
     }
 
@@ -40,7 +41,11 @@ impl HttpHeaders {
             return self.host.as_deref();
         }
         if name.eq_ignore_ascii_case("connection") {
-            return if self.connection_close { Some("close") } else { Some("keep-alive") };
+            return if self.connection_close {
+                Some("close")
+            } else {
+                Some("keep-alive")
+            };
         }
         let lower = name.to_ascii_lowercase();
         for (k, v) in &self.other {

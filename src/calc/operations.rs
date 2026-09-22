@@ -3,7 +3,7 @@ use super::operation::Operation;
 
 pub struct AddOperation;
 impl Operation for AddOperation {
-    fn name(&self) -> &str {
+    fn name(&self) -> &'static str {
         "add"
     }
 
@@ -14,7 +14,7 @@ impl Operation for AddOperation {
 
 pub struct SubOperation;
 impl Operation for SubOperation {
-    fn name(&self) -> &str {
+    fn name(&self) -> &'static str {
         "sub"
     }
 
@@ -25,7 +25,7 @@ impl Operation for SubOperation {
 
 pub struct MulOperation;
 impl Operation for MulOperation {
-    fn name(&self) -> &str {
+    fn name(&self) -> &'static str {
         "mul"
     }
 
@@ -36,7 +36,7 @@ impl Operation for MulOperation {
 
 pub struct DivOperation;
 impl Operation for DivOperation {
-    fn name(&self) -> &str {
+    fn name(&self) -> &'static str {
         "div"
     }
 
@@ -50,7 +50,11 @@ impl Operation for DivOperation {
 
 /// Formats a calculation result cleanly: integers as whole numbers, floats with decimals.
 pub fn format_result(val: f64) -> String {
-    if (val.fract()).abs() < 1e-12 {
+    if val.is_finite()
+        && val.fract().abs() < 1e-12
+        && val >= (i64::MIN as f64)
+        && val <= (i64::MAX as f64)
+    {
         format!("{}\n", val as i64)
     } else {
         format!("{}\n", val)

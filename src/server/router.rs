@@ -18,7 +18,7 @@ impl Router {
         let should_close = req.should_close();
 
         // Extract clean operation path: e.g. "/add" -> "add"
-        let raw_path = req.path.trim();
+        let raw_path = req.path().trim();
         let path = raw_path.strip_prefix('/').unwrap_or(raw_path);
 
         // Check if operation exists in registry
@@ -87,7 +87,7 @@ impl Router {
 mod tests {
     use super::*;
     use crate::calc::{AddOperation, DivOperation, MulOperation, SubOperation};
-    use crate::http::{HttpHeaders, HttpStatus};
+    use crate::http::{HttpHeaders, HttpStatus, HttpVersion};
 
     fn setup_router() -> Router {
         let mut registry = OperationRegistry::new();
@@ -104,7 +104,7 @@ mod tests {
         HttpRequest::new(
             method,
             uri.to_string(),
-            "HTTP/1.1".to_string(),
+            HttpVersion::Http11,
             headers,
             Vec::new(),
         )

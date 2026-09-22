@@ -45,8 +45,11 @@ Overview of the core modules and responsibilities:
 | [`src/calc/error.rs`](src/calc/error.rs) | Domain error definitions for arithmetic evaluation. |
 | [`src/http/parser.rs`](src/http/parser.rs) | Wire-level byte scanning, delimiter extraction, boundary isolation, and RFC Host checks. |
 | [`src/http/headers.rs`](src/http/headers.rs) | Case-insensitive ASCII header lookup and protocol flags. |
-| [`src/http/request.rs`](src/http/request.rs) | Request data model with single-pass URI parameter parser. |
+| [`src/http/request.rs`](src/http/request.rs) | Request data model with single-pass zero-allocation URI parameter parser. |
 | [`src/http/response.rs`](src/http/response.rs) | Wire byte serialization with deterministic `Content-Length`. |
+| [`src/http/status.rs`](src/http/status.rs) | HTTP status codes, reason phrases, and wire formatting helpers. |
+| [`src/http/method.rs`](src/http/method.rs) | Supported HTTP verbs and zero-allocation method parser. |
+| [`src/http/version.rs`](src/http/version.rs) | HTTP protocol version definitions and zero-copy parser. |
 | [`src/server/router.rs`](src/server/router.rs) | Request router mapping paths and methods to operations. |
 | [`src/server/handler.rs`](src/server/handler.rs) | Socket connection event loop, idle timeouts, buffer draining, and FIFO pipelined dispatch. |
 | [`src/server/mod.rs`](src/server/mod.rs) | TCP socket listener and thread dispatching. |

@@ -18,6 +18,17 @@ impl HttpStatus {
     }
 
     #[inline]
+    pub fn code_str(&self) -> &'static str {
+        match self {
+            HttpStatus::Ok => "200",
+            HttpStatus::BadRequest => "400",
+            HttpStatus::NotFound => "404",
+            HttpStatus::MethodNotAllowed => "405",
+            HttpStatus::InternalServerError => "500",
+        }
+    }
+
+    #[inline]
     pub fn reason_phrase(&self) -> &'static str {
         match self {
             HttpStatus::Ok => "OK",

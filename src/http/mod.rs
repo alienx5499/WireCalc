@@ -5,6 +5,7 @@ pub mod parser;
 pub mod request;
 pub mod response;
 pub mod status;
+pub mod version;
 
 pub use headers::HttpHeaders;
 pub use method::HttpMethod;
@@ -12,3 +13,4 @@ pub use parser::{HttpParser, ParseStatus};
 pub use request::HttpRequest;
 pub use response::HttpResponse;
 pub use status::HttpStatus;
+pub use version::HttpVersion;
